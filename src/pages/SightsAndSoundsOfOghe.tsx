@@ -1,5 +1,44 @@
 import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
+import {
+  CULTURAL_PHOTOS,
+  VILLAGE_PHOTO_GROUPS,
+  type OghePhoto,
+} from "../data/sightsAndSounds";
+
+function PhotoGallery({ title, photos }: { title: string; photos: OghePhoto[] }) {
+  return (
+    <section className="border-t border-ink/10 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+            {title}
+          </h2>
+        </Reveal>
+        <div className="mt-8 columns-2 gap-4 sm:columns-3 lg:columns-4">
+          {photos.map((image) => (
+            <figure
+              key={image.src}
+              className="mb-4 break-inside-avoid overflow-hidden border border-ink/10 bg-paper shadow-sm"
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                className="block h-auto w-full transition-transform duration-500 hover:scale-[1.025]"
+              />
+              {image.caption && (
+                <figcaption className="border-t border-ink/10 px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/60">
+                  {image.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function SightsAndSoundsOfOghe() {
   return (
@@ -13,43 +52,29 @@ export default function SightsAndSoundsOfOghe() {
         }
       />
 
-      <section className="border-y border-ink/10 bg-paper py-16 md:py-24">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-4">
-            <figure className="mx-auto max-w-[260px] overflow-hidden border border-ink/10 bg-sand shadow-[10px_10px_0_0_var(--color-goldsoft)]">
-              <img
-                src="/images/sights-and-sounds-oghe.jpg"
-                alt="A costumed masquerade performer with a tall decorated structure, surrounded by onlookers."
-                className="block h-auto w-full"
-                loading="lazy"
-              />
-              <figcaption className="bg-forest px-4 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-cream/75">
-                Cultural life in Oghe
-              </figcaption>
-            </figure>
-          </Reveal>
-
-          <Reveal delay={120} className="lg:col-span-8">
-            <article className="relative overflow-hidden border border-ink/10 bg-forest px-7 py-10 text-cream shadow-[10px_10px_0_0_var(--color-goldsoft)] md:px-14 md:py-14">
-              <div
-                aria-hidden
-                className="absolute -right-16 -top-16 h-56 w-56 rounded-full border border-dashed border-cream/15"
-              />
-              <div className="relative space-y-6 font-display text-xl leading-relaxed text-cream/85 md:text-2xl">
-                <p>
-                  Oghe communities are mainly agrarian and are also endowed with various natural resources.
-                </p>
-                <p>
-                  The Oghe community supports the Enugu State and Federal Government economies through agricultural products and solid minerals, and engages in agricultural activities.
-                </p>
-                <p className="border-l-2 border-gold pl-5 text-gold md:pl-7">
-                  Coal and other solid minerals are abundant in Oghe town.
-                </p>
-              </div>
-            </article>
+      <section className="bg-forest py-16 text-cream md:py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
+            <p className="eyebrow text-gold!">Land, people and produce</p>
+            <div className="mt-7 space-y-5 font-display text-xl leading-relaxed text-cream/85 md:text-2xl">
+              <p>
+                Oghe communities are mainly agrarian and are also endowed with various natural resources.
+              </p>
+              <p>
+                The Oghe community supports the Enugu State and Federal Government economies through agricultural products and solid minerals. The photographs below show some of the community’s agricultural activities and produce.
+              </p>
+              <p className="border-l-2 border-gold pl-5 text-gold md:pl-7">
+                Coal and other solid minerals are abundant in Oghe town.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
+
+      <PhotoGallery title="Culture and community" photos={CULTURAL_PHOTOS} />
+      {VILLAGE_PHOTO_GROUPS.map((group) => (
+        <PhotoGallery key={group.title} title={group.title} photos={group.photos} />
+      ))}
     </>
   );
 }
