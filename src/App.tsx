@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import HistoryOfOghe from "./pages/HistoryOfOghe";
 import HistoryOfOsda from "./pages/HistoryOfOsda";
+import SightsAndSoundsOfOghe from "./pages/SightsAndSoundsOfOghe";
 
 /** Reset scroll position on route change. */
 function ScrollToTop() {
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/about/history-of-oghe" element={<HistoryOfOghe />} />
           <Route path="/about/history-of-osda" element={<HistoryOfOsda />} />
+          <Route path="/about/sights-and-sounds-of-oghe" element={<SightsAndSoundsOfOghe />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>

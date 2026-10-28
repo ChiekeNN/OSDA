@@ -202,4 +202,5 @@ export const ABOUT_NAV_LINKS = [
   { to: "/about#about-osda", label: "About OSDA" },
   { to: "/about/history-of-osda", label: "HISTORY OF OSDA" },
   { to: "/about/history-of-oghe", label: "HISTORY OF OGHE" },
+  { to: "/about/sights-and-sounds-of-oghe", label: "Sights and Sounds of Oghe" },
 ];
