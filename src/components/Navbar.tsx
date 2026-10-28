@@ -107,7 +107,7 @@ export default function Navbar() {
                       onClick={() => setAboutOpen((value) => !value)}
                       className={cn(
                         "inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors",
-                        location.pathname === "/about" ? "text-pine" : "text-ink/60 hover:text-ink"
+                        location.pathname.startsWith("/about") ? "text-pine" : "text-ink/60 hover:text-ink"
                       )}
                     >
                       {link.label}
@@ -205,7 +205,7 @@ export default function Navbar() {
                   onClick={() => setMobileAboutOpen((value) => !value)}
                   className={cn(
                     "flex items-center gap-3 font-display text-5xl font-semibold tracking-tight transition-colors",
-                    location.pathname === "/about" || mobileAboutOpen
+                    location.pathname.startsWith("/about") || mobileAboutOpen
                       ? "italic text-gold"
                       : "text-cream hover:text-gold"
                   )}
