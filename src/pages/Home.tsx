@@ -121,6 +121,66 @@ function Hero() {
   );
 }
 
+function PresidentWelcome() {
+  return (
+    <section className="border-y border-ink/10 bg-sand/65 py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4">
+          <Reveal>
+            <p className="eyebrow">A message from our president</p>
+            <h2 className="mt-7 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink md:text-5xl">
+              Welcome to <span className="italic text-pine">our community.</span>
+            </h2>
+            <p className="mt-6 max-w-sm leading-relaxed text-ink/60">
+              A few words from the office of the President of Oghe Social Development Association.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="lg:col-span-8">
+          <Reveal delay={140}>
+            <div className="border-l-2 border-gold pl-6 md:pl-10">
+              <p className="font-display text-xl font-medium leading-relaxed text-ink md:text-2xl">
+                It is my great honor and privilege to welcome you to Oghe Social Development Association.
+              </p>
+              <div className="mt-7 space-y-5 leading-relaxed text-ink/70">
+                <p>
+                  Our organization was established with a deep commitment to preserving our rich cultural heritage while promoting unity, empowerment, and sustainable development within our community.
+                </p>
+                <p>
+                  We believe that culture is the foundation of identity, and identity is the foundation of strength.
+                </p>
+                <p>
+                  As an association, our vision is to build a community where tradition and progress walk hand in hand, where our youths and unemployed are inspired, our elders are respected, rules are obeyed, and our people are united in purpose. Through education, social initiatives, cultural events, and development programs, we are building a stronger future together.
+                </p>
+                <p>
+                  We are more than an organization: we are a family, a movement, and a platform for positive change within and outside Oghe Social Development Association.
+                </p>
+                <p>
+                  We warmly invite organizations, government agencies, NGOs, embassies, and you to explore our activities, partner with us, and become an active part of this journey. Together, we can celebrate our heritage and shape a brighter tomorrow.
+                </p>
+                <p>Thank you for visiting our website, and welcome to our community.</p>
+              </div>
+
+              <div className="mt-9 flex flex-col items-start gap-1 border-t border-ink/10 pt-6">
+                <span className="text-sm text-ink/55">Warm regards,</span>
+                <span className="mt-2 font-display text-2xl font-semibold text-ink">Gerald Aniamalu</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-pine">President</span>
+                <a
+                  href="mailto:Osdaabuja2018@gmail.com"
+                  className="link-sweep mt-3 text-sm text-ink/65"
+                >
+                  Osdaabuja2018@gmail.com
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function WhoWeAre() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 md:py-32">
@@ -410,6 +470,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <PresidentWelcome />
       <Marquee />
       <WhoWeAre />
       <Stats />
