@@ -15,6 +15,21 @@ function ScrollToTop() {
   return null;
 }
 
+/** Scroll to section links after HashRouter has rendered the destination. */
+function ScrollToHash() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const timeout = window.setTimeout(() => {
+      document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
+    }, 0);
+    return () => window.clearTimeout(timeout);
+  }, [pathname, hash]);
+  return null;
+}
+
 /**
  * Add a new page later:
  *   1. Create src/pages/YourPage.tsx
@@ -25,6 +40,7 @@ export default function App() {
   return (
     <HashRouter>
       <ScrollToTop />
+      <ScrollToHash />
       <div className="noise-layer" aria-hidden />
       <Navbar />
       <main>

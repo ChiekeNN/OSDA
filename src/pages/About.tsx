@@ -3,40 +3,22 @@ import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
 import { ArrowRight, ArrowUpRight, ObjectiveIcon } from "../components/icons";
 import { IMAGES, OBJECTIVES, ORG, PILLARS } from "../data/content";
+import HISTORY_OF_OSDA from "../data/history";
 
 function Story() {
   return (
-    <section className="mx-auto max-w-7xl px-6 pb-24 md:pb-32">
+    <section id="about-osda" className="mx-auto max-w-7xl scroll-mt-28 px-6 pb-24 md:pb-32">
       <div className="grid items-center gap-14 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="eyebrow">The association</p>
+            <p className="eyebrow">About OSDA</p>
+            <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
+              Oghe Social <span className="italic text-pine">Development Association.</span>
+            </h2>
           </Reveal>
           <Reveal delay={120}>
             <p className="mt-7 text-lg leading-relaxed text-ink/75">
-              <strong className="font-semibold text-ink">
-                Oghe Social Development Association
-              </strong>{" "}
-              — OSDA for short — is a community-driven association formed to
-              make sure that no one in our community is left behind by the
-              circumstances of their birth. We are neighbours, parents, traders
-              and students who decided that development should not be something
-              that happens <em>to</em> a community, but something the
-              community builds with its own hands.
-            </p>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="mt-6 text-lg leading-relaxed text-ink/75">
-              From scholarships for children who might otherwise stop
-              learning, to community health centres for families too far from
-              the hospital, to microloans that turn a market stall into a
-              small business — every OSDA programme starts from the same
-              place: a real need, voiced by the people who live it.
-            </p>
-          </Reveal>
-          <Reveal delay={320}>
-            <p className="mt-8 font-display text-xl italic text-pine">
-              — The OSDA community circle, Oghe
+              The acronym OSDA is: <strong className="font-semibold text-ink">Oghe Social Development Association.</strong>
             </p>
           </Reveal>
         </div>
@@ -62,16 +44,41 @@ function Story() {
   );
 }
 
+function History() {
+  return (
+    <section id="history-of-osda" className="scroll-mt-28 border-y border-ink/10 bg-sand/65 py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-36">
+            <p className="eyebrow">Our story</p>
+            <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
+              History <span className="italic text-pine">of OSDA.</span>
+            </h2>
+            <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/45">
+              By Gerald Onyekachi Eze
+            </p>
+          </div>
+        </div>
+        <article className="space-y-6 text-base leading-[1.85] text-ink/70 lg:col-span-8">
+          {HISTORY_OF_OSDA.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function Vision() {
   return (
-    <section className="relative overflow-hidden bg-forest text-cream">
+    <section id="vision-statement" className="relative scroll-mt-28 overflow-hidden bg-forest text-cream">
       <div
         aria-hidden
         className="absolute -right-24 -top-24 h-80 w-80 rounded-full border border-dashed border-cream/15"
       />
       <div className="relative mx-auto max-w-5xl px-6 py-24 md:py-28">
         <Reveal>
-          <p className="eyebrow text-gold!">Our vision</p>
+          <p className="eyebrow text-gold!">Vision Statement</p>
         </Reveal>
         <Reveal delay={140}>
           <blockquote className="mt-9 font-display text-2xl font-medium leading-[1.35] tracking-tight text-cream md:text-4xl">
@@ -91,11 +98,11 @@ function Vision() {
 
 function Mission() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+    <section id="mission-statement" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 md:py-32">
       <div className="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Reveal>
-            <p className="eyebrow">Our mission</p>
+            <p className="eyebrow">Mission Statement</p>
             <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
               Two fires,
               <br />
@@ -130,10 +137,10 @@ function Mission() {
 
 function Motto() {
   return (
-    <section className="border-y border-ink/10 bg-paper py-24 md:py-32">
+    <section id="osda-motto" className="scroll-mt-28 border-y border-ink/10 bg-paper py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
-          <p className="eyebrow">The OSDA motto</p>
+          <p className="eyebrow">OSDA Motto</p>
         </Reveal>
         <div className="mt-10 space-y-4 md:space-y-6">
           {ORG.motto.map((phrase, i) => (
@@ -145,7 +152,7 @@ function Motto() {
                 }`}
               >
                 {phrase}
-                <span className={i === 2 ? "text-gold" : "text-gold"}>.</span>
+                <span className="text-gold">{i === ORG.motto.length - 1 ? "." : ","}</span>
               </p>
             </Reveal>
           ))}
@@ -157,11 +164,11 @@ function Motto() {
 
 function Objectives() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+    <section id="osda-objectives" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 md:py-32">
       <Reveal>
-        <p className="eyebrow">The four objectives</p>
+        <p className="eyebrow">OSDA Objectives</p>
         <h2 className="mt-6 max-w-2xl font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
-          What we promise <span className="italic text-pine">this community</span>.
+          Four commitments. <span className="italic text-pine">One community.</span>
         </h2>
       </Reveal>
       <div className="mt-14 grid gap-x-14 gap-y-12 md:grid-cols-2">
@@ -273,16 +280,12 @@ export default function About() {
   return (
     <>
       <PageHeader
-        kicker="About the association"
-        title={
-          <>
-            We are the community,{" "}
-            <span className="italic text-pine">for the community.</span>
-          </>
-        }
-        lede="OSDA exists to open the doors to education, healthcare, economic opportunity and a voice in governance — for every individual in our community, regardless of background."
+        kicker="About OSDA"
+        title={<span className="italic text-pine">Oghe Social Development Association.</span>}
+        lede="Learn about the association, our vision and mission, our motto, and the objectives guiding our work."
       />
       <Story />
+      <History />
       <Vision />
       <Mission />
       <Motto />
