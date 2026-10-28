@@ -212,6 +212,7 @@ export const NAV_LINKS = [
 export const ABOUT_NAV_LINKS = [
   { to: "/about#about-osda", label: "About OSDA" },
   { to: "/about/history-of-oghe", label: "HISTORY OF OGHE" },
+  { to: "/about/history-of-osda", label: "HISTORY OF OSDA" },
   { to: "/about#vision-statement", label: "Vision Statement" },
   { to: "/about#mission-statement", label: "Mission Statement" },
   { to: "/about#osda-motto", label: "OSDA Motto" },
