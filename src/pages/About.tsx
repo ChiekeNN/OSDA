@@ -3,7 +3,6 @@ import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
 import { ArrowRight, ArrowUpRight, ObjectiveIcon } from "../components/icons";
 import { IMAGES, OBJECTIVES, ORG, PILLARS } from "../data/content";
-import HISTORY_OF_OSDA from "../data/history";
 
 function Story() {
   return (
@@ -39,31 +38,6 @@ function Story() {
             </div>
           </Reveal>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function History() {
-  return (
-    <section id="history-of-osda" className="scroll-mt-28 border-y border-ink/10 bg-sand/65 py-20 md:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-36">
-            <p className="eyebrow">Our story</p>
-            <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
-              History <span className="italic text-pine">of OSDA.</span>
-            </h2>
-            <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/45">
-              By Gerald Onyekachi Eze
-            </p>
-          </div>
-        </div>
-        <article className="space-y-6 text-base leading-[1.85] text-ink/70 lg:col-span-8">
-          {HISTORY_OF_OSDA.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </article>
       </div>
     </section>
   );
@@ -285,7 +259,6 @@ export default function About() {
         lede="Learn about the association, our vision and mission, our motto, and the objectives guiding our work."
       />
       <Story />
-      <History />
       <Vision />
       <Mission />
       <Motto />
