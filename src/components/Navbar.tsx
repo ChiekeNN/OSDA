@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { NAV_LINKS, ORG } from "../data/content";
+import { ABOUT_NAV_LINKS, NAV_LINKS, ORG } from "../data/content";
 import { cn } from "../utils/cn";
 import { ArrowUpRight } from "./icons";
 
@@ -41,6 +41,8 @@ function Wordmark({ light = false }: { light?: boolean }) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -54,7 +56,9 @@ export default function Navbar() {
   /* close the mobile panel on navigation */
   useEffect(() => {
     setOpen(false);
-  }, [location.pathname]);
+    setAboutOpen(false);
+    setMobileAboutOpen(false);
+  }, [location.pathname, location.hash]);
 
   /* lock scroll while the mobile panel is open */
   useEffect(() => {
@@ -93,21 +97,60 @@ export default function Navbar() {
             <Wordmark />
 
             <nav className="hidden items-center gap-9 md:flex">
-              {NAV_LINKS.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.to === "/"}
-                  className={({ isActive }) =>
-                    cn(
-                      "link-sweep text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors",
-                      isActive ? "active text-pine" : "text-ink/60 hover:text-ink"
-                    )
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
+              {NAV_LINKS.map((link) =>
+                link.to === "/about" ? (
+                  <div key={link.to} className="relative">
+                    <button
+                      type="button"
+                      aria-expanded={aboutOpen}
+                      aria-haspopup="true"
+                      onClick={() => setAboutOpen((value) => !value)}
+                      className={cn(
+                        "inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors",
+                        location.pathname === "/about" ? "text-pine" : "text-ink/60 hover:text-ink"
+                      )}
+                    >
+                      {link.label}
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 16 16"
+                        className={cn("h-3.5 w-3.5 transition-transform", aboutOpen && "rotate-180")}
+                        fill="none"
+                      >
+                        <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </button>
+                    {aboutOpen && (
+                      <div className="absolute left-0 top-full z-50 mt-4 w-60 border border-ink/10 bg-paper p-2 shadow-xl">
+                        {ABOUT_NAV_LINKS.map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={() => setAboutOpen(false)}
+                            className="block px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/65 transition-colors hover:bg-sand hover:text-pine"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.to === "/"}
+                    className={({ isActive }) =>
+                      cn(
+                        "link-sweep text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors",
+                        isActive ? "active text-pine" : "text-ink/60 hover:text-ink"
+                      )
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                )
+              )}
               <Link to="/contact" className="btn btn-pine px-6! py-3!">
                 Get Involved
                 <ArrowUpRight className="h-4 w-4" />
@@ -141,28 +184,74 @@ export default function Navbar() {
       {/* mobile panel */}
       <div
         className={cn(
-          "fixed inset-0 z-[60] flex flex-col justify-center bg-forest px-8 transition-all duration-500 md:hidden",
+          "fixed inset-0 z-[60] flex flex-col justify-center overflow-y-auto bg-forest px-8 py-24 transition-all duration-500 md:hidden",
           open ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
         <nav className="flex flex-col gap-2">
-          {NAV_LINKS.map((link, i) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === "/"}
-              style={{ transitionDelay: open ? `${120 + i * 80}ms` : "0ms" }}
-              className={({ isActive }) =>
-                cn(
-                  "font-display text-5xl font-semibold tracking-tight transition-all duration-500",
-                  open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
-                  isActive ? "italic text-gold" : "text-cream hover:text-gold"
-                )
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+          {NAV_LINKS.map((link, i) =>
+            link.to === "/about" ? (
+              <div
+                key={link.to}
+                style={{ transitionDelay: open ? `${120 + i * 80}ms` : "0ms" }}
+                className={cn(
+                  "transition-all duration-500",
+                  open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+                )}
+              >
+                <button
+                  type="button"
+                  aria-expanded={mobileAboutOpen}
+                  onClick={() => setMobileAboutOpen((value) => !value)}
+                  className={cn(
+                    "flex items-center gap-3 font-display text-5xl font-semibold tracking-tight transition-colors",
+                    location.pathname === "/about" || mobileAboutOpen
+                      ? "italic text-gold"
+                      : "text-cream hover:text-gold"
+                  )}
+                >
+                  {link.label}
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                    className={cn("h-5 w-5 transition-transform", mobileAboutOpen && "rotate-180")}
+                    fill="none"
+                  >
+                    <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                </button>
+                {mobileAboutOpen && (
+                  <div className="ml-2 mt-3 flex flex-col border-l border-gold/40 pl-5">
+                    {ABOUT_NAV_LINKS.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className="py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-gold"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === "/"}
+                style={{ transitionDelay: open ? `${120 + i * 80}ms` : "0ms" }}
+                className={({ isActive }) =>
+                  cn(
+                    "font-display text-5xl font-semibold tracking-tight transition-all duration-500",
+                    open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+                    isActive ? "italic text-gold" : "text-cream hover:text-gold"
+                  )
+                }
+              >
+                {link.label}
+              </NavLink>
+            )
+          )}
           <Link
             to="/contact"
             style={{ transitionDelay: open ? "420ms" : "0ms" }}

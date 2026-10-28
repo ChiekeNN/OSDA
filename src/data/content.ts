@@ -205,6 +205,15 @@ export const PILLARS: { icon: IconKey; title: string; text: string }[] = [
 
 export const NAV_LINKS = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About OSDA" },
   { to: "/contact", label: "Contact" },
+];
+
+export const ABOUT_NAV_LINKS = [
+  { to: "/about#about-osda", label: "About OSDA" },
+  { to: "/about#history-of-osda", label: "History of OSDA" },
+  { to: "/about#vision-statement", label: "Vision Statement" },
+  { to: "/about#mission-statement", label: "Mission Statement" },
+  { to: "/about#osda-motto", label: "OSDA Motto" },
+  { to: "/about#osda-objectives", label: "OSDA Objectives" },
 ];
