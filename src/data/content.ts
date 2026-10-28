@@ -7,24 +7,13 @@ export const ORG = {
   acronym: "OSDA",
   name: "Oghe Social Development Association",
   motto: [
-    "Empowering Lives",
-    "Building Communities",
-    "Lifting the Forgotten",
-    "Empowering the Future",
+    "Empowering Lives by Lifting the Forgotten, Building our Communities and Empowering the Future",
   ],
   tagline: "Community-led development for Oghe and beyond.",
   vision:
-    "As an association, we hope to offer opportunities where every individual, regardless of background, has access to education, healthcare, economic opportunities, and a voice in governance — enabling inclusive and sustainable development for all.",
-  mission: [
-    {
-      title: "Sustainable Community Development",
-      text: "Our mission is to promote sustainable social development by implementing community-led programs that address poverty, inequality, and environmental challenges.",
-    },
-    {
-      title: "Youth Empowerment",
-      text: "Our mission is to inspire and support the next generation by improving access to education, mentorship, and life skills that empower youth to shape a better future for their communities.",
-    },
-  ],
+    "As an organization, we hope to offer opportunities where every individual, regardless of background, has access to education, healthcare, economic opportunities, and a voice in governance, enabling inclusive and sustainable development for all.",
+  mission:
+    "Our mission is to promote sustainable social development by implementing community-led programs that address poverty, inequality, and environmental challenges. More so to inspire and support the next generation by improving access to education, mentorship, and life skills that empower youth to shape a better future for their communities.",
   /* Placeholder contact details — replace with the real ones. */
   email: "hello@osda.org.ng",
   phone: "+234 (0) 800 000 0000",
@@ -88,7 +77,7 @@ export const OBJECTIVES: {
     no: "02",
     icon: "pulse",
     title: "Accessible Community Healthcare",
-    text: "To promote accessible healthcare by establishing community health centres in underserved areas.",
+    text: "To promote accessible healthcare by establishing community health centers in underserved areas.",
   },
   {
     no: "03",
@@ -100,7 +89,7 @@ export const OBJECTIVES: {
     no: "04",
     icon: "spark",
     title: "Vocational & Life-Skills Training",
-    text: "To offer vocational and life-skills training for youth, women, and children for self-reliance.",
+    text: "To offer vocational and life skills training for youth, women, and children for self-reliance.",
   },
 ];
 
@@ -211,10 +200,6 @@ export const NAV_LINKS = [
 
 export const ABOUT_NAV_LINKS = [
   { to: "/about#about-osda", label: "About OSDA" },
-  { to: "/about/history-of-oghe", label: "HISTORY OF OGHE" },
   { to: "/about/history-of-osda", label: "HISTORY OF OSDA" },
-  { to: "/about#vision-statement", label: "Vision Statement" },
-  { to: "/about#mission-statement", label: "Mission Statement" },
-  { to: "/about#osda-motto", label: "OSDA Motto" },
-  { to: "/about#osda-objectives", label: "OSDA Objectives" },
+  { to: "/about/history-of-oghe", label: "HISTORY OF OGHE" },
 ];

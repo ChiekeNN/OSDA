@@ -73,37 +73,15 @@ function Vision() {
 function Mission() {
   return (
     <section id="mission-statement" className="mx-auto max-w-7xl scroll-mt-28 px-6 py-24 md:py-32">
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <Reveal>
-            <p className="eyebrow">Mission Statement</p>
-            <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
-              Two fires,
-              <br />
-              <span className="italic text-gold">one flame.</span>
-            </h2>
-            <p className="mt-6 max-w-sm leading-relaxed text-ink/60">
-              Everything OSDA does is carried by two commitments — to the
-              community as a whole, and to the young people who will inherit
-              it.
-            </p>
-          </Reveal>
-        </div>
-        <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8">
-          {ORG.mission.map((m, i) => (
-            <Reveal key={m.title} delay={i * 140}>
-              <article className="group border-l-2 border-gold pl-7 transition-colors duration-300 hover:border-pine">
-                <span className="font-display text-3xl italic text-ink/25 transition-colors duration-300 group-hover:text-gold">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">
-                  {m.title}
-                </h3>
-                <p className="mt-4 leading-relaxed text-ink/65">{m.text}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+      <div className="grid gap-10 lg:grid-cols-12">
+        <Reveal className="lg:col-span-4">
+          <p className="eyebrow">Mission Statement</p>
+        </Reveal>
+        <Reveal delay={120} className="lg:col-span-8">
+          <p className="border-l-2 border-gold pl-7 font-display text-2xl font-medium leading-relaxed text-ink md:text-3xl">
+            {ORG.mission}
+          </p>
+        </Reveal>
       </div>
     </section>
   );
@@ -115,22 +93,10 @@ function Motto() {
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <p className="eyebrow">OSDA Motto</p>
+          <p className="mt-9 max-w-5xl border-l-2 border-gold pl-6 font-display text-3xl font-semibold leading-tight tracking-tight text-ink md:pl-10 md:text-5xl">
+            {ORG.motto[0]}
+          </p>
         </Reveal>
-        <div className="mt-10 space-y-4 md:space-y-6">
-          {ORG.motto.map((phrase, i) => (
-            <Reveal key={phrase} delay={i * 130}>
-              <p
-                style={{ marginLeft: `${i * 4}%` }}
-                className={`font-display text-4xl font-semibold leading-tight tracking-tight md:text-6xl ${
-                  i === 2 ? "italic text-gold" : i % 2 === 1 ? "text-pine" : "text-ink"
-                }`}
-              >
-                {phrase}
-                <span className="text-gold">{i === ORG.motto.length - 1 ? "." : ","}</span>
-              </p>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   );
