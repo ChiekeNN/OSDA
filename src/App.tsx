@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import HistoryOfOghe from "./pages/HistoryOfOghe";
 
 /** Reset scroll position on route change. */
 function ScrollToTop() {
@@ -47,6 +48,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/about/history-of-oghe" element={<HistoryOfOghe />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>
