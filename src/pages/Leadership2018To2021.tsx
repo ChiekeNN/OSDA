@@ -12,20 +12,10 @@ export default function Leadership2018To2021() {
             Chief Peter Ozoagu Leadership <span className="italic text-pine">2018–2021.</span>
           </>
         }
-        lede="The officers and representatives recorded for OSDA’s 2018 to 2021 leadership cycle."
       />
 
       <section className="border-y border-ink/10 bg-sand/50 py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <Reveal>
-            <div className="mb-12 border-b border-ink/10 pb-8">
-              <p className="eyebrow">Leadership cycle</p>
-              <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink/70">
-                The supplied PDF identifies Chief Peter Ozoagu Esq as President and Chief Mike Chiaha as Vice President. The full team and offices named in the document are presented below.
-              </p>
-            </div>
-          </Reveal>
-
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {LEADERSHIP_2018_TO_2021.map((leader, index) => (
               <Reveal key={leader.id} delay={(index % 3) * 80}>
@@ -46,10 +36,6 @@ export default function Leadership2018To2021() {
               </Reveal>
             ))}
           </div>
-
-          <p className="mt-10 max-w-3xl text-xs leading-relaxed text-ink/45">
-            Names, roles, and portraits are transcribed from the supplied PDF. The spelling “Cliford Obuayo” follows the source document.
-          </p>
         </div>
       </section>
     </>
