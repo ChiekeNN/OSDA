@@ -12,20 +12,10 @@ export default function Leadership2021ToPresent() {
             Gerald Aniamalu Leadership <span className="italic text-pine">2021–Present.</span>
           </>
         }
-        lede="The officers and representatives recorded for OSDA’s leadership cycle beginning in 2021."
       />
 
       <section className="border-y border-ink/10 bg-sand/50 py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <Reveal>
-            <div className="mb-12 border-b border-ink/10 pb-8">
-              <p className="eyebrow">Leadership cycle · 2021 to date</p>
-              <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink/70">
-                The supplied PDF identifies Gerald Aniamalu as President and Chief Uche Chiude as Vice President, and lists the officers below. The source describes the leadership period as “2021 till date.”
-              </p>
-            </div>
-          </Reveal>
-
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {LEADERSHIP_2021_TO_PRESENT.map((leader, index) => (
               <Reveal key={leader.id} delay={(index % 3) * 80}>

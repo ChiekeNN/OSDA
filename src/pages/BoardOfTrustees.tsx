@@ -38,7 +38,7 @@ function TrusteeCard({
         <p className="mt-2 text-sm font-medium text-pine">{role}</p>
         {!name && (
           <p className="mt-3 text-xs leading-relaxed text-ink/50">
-            The source document does not list a name or portrait for this representative.
+            Name and portrait not provided.
           </p>
         )}
       </div>

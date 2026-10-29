@@ -35,7 +35,7 @@ export const LEADERSHIP_2006_TO_2010: Leadership2006Profile[] = [
     id: "treasurer",
     name: "Mr Pascal",
     role: "Treasurer",
-    note: "The source document gives no surname.",
+    note: "Surname not provided.",
   },
   {
     id: "publicity-secretary",
@@ -54,6 +54,6 @@ export const LEADERSHIP_2006_TO_2010: Leadership2006Profile[] = [
   {
     id: "provost-officer-2-second-listing",
     role: "Provost Officer II",
-    note: "The source document lists Provost Officer II twice.",
+    note: "This role appears twice in the list.",
   },
 ];
