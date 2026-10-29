@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ABOUT_NAV_LINKS, NAV_LINKS, ORG } from "../data/content";
+import { ABOUT_NAV_LINKS, ADMINISTRATION_NAV_LINKS, NAV_LINKS, ORG } from "../data/content";
 import { cn } from "../utils/cn";
 import { ArrowUpRight } from "./icons";
 
@@ -42,7 +42,9 @@ function Wordmark({ light = false }: { light?: boolean }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [administrationOpen, setAdministrationOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileAdministrationOpen, setMobileAdministrationOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -57,7 +59,9 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(false);
     setAboutOpen(false);
+    setAdministrationOpen(false);
     setMobileAboutOpen(false);
+    setMobileAdministrationOpen(false);
   }, [location.pathname, location.hash]);
 
   /* lock scroll while the mobile panel is open */
@@ -111,24 +115,41 @@ export default function Navbar() {
                       )}
                     >
                       {link.label}
-                      <svg
-                        aria-hidden="true"
-                        viewBox="0 0 16 16"
-                        className={cn("h-3.5 w-3.5 transition-transform", aboutOpen && "rotate-180")}
-                        fill="none"
-                      >
+                      <svg aria-hidden="true" viewBox="0 0 16 16" className={cn("h-3.5 w-3.5 transition-transform", aboutOpen && "rotate-180")} fill="none">
                         <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
                     </button>
                     {aboutOpen && (
                       <div className="absolute left-0 top-full z-50 mt-4 w-60 border border-ink/10 bg-paper p-2 shadow-xl">
                         {ABOUT_NAV_LINKS.map((item) => (
-                          <Link
-                            key={item.to}
-                            to={item.to}
-                            onClick={() => setAboutOpen(false)}
-                            className="block px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/65 transition-colors hover:bg-sand hover:text-pine"
-                          >
+                          <Link key={item.to} to={item.to} onClick={() => setAboutOpen(false)} className="block px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/65 transition-colors hover:bg-sand hover:text-pine">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : link.to === "/administration" ? (
+                  <div key={link.to} className="relative">
+                    <button
+                      type="button"
+                      aria-expanded={administrationOpen}
+                      aria-haspopup="true"
+                      onClick={() => setAdministrationOpen((value) => !value)}
+                      className={cn(
+                        "inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors",
+                        location.pathname.startsWith("/administration") ? "text-pine" : "text-ink/60 hover:text-ink"
+                      )}
+                    >
+                      {link.label}
+                      <svg aria-hidden="true" viewBox="0 0 16 16" className={cn("h-3.5 w-3.5 transition-transform", administrationOpen && "rotate-180")} fill="none">
+                        <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </button>
+                    {administrationOpen && (
+                      <div className="absolute left-0 top-full z-50 mt-4 w-60 border border-ink/10 bg-paper p-2 shadow-xl">
+                        {ADMINISTRATION_NAV_LINKS.map((item) => (
+                          <Link key={item.to} to={item.to} onClick={() => setAdministrationOpen(false)} className="block px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/65 transition-colors hover:bg-sand hover:text-pine">
                             {item.label}
                           </Link>
                         ))}
@@ -190,7 +211,7 @@ export default function Navbar() {
       >
         <nav className="flex flex-col gap-2">
           {NAV_LINKS.map((link, i) =>
-            link.to === "/about" ? (
+            link.to === "/about" || link.to === "/administration" ? (
               <div
                 key={link.to}
                 style={{ transitionDelay: open ? `${120 + i * 80}ms` : "0ms" }}
@@ -199,39 +220,58 @@ export default function Navbar() {
                   open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
                 )}
               >
-                <button
-                  type="button"
-                  aria-expanded={mobileAboutOpen}
-                  onClick={() => setMobileAboutOpen((value) => !value)}
-                  className={cn(
-                    "flex items-center gap-3 font-display text-5xl font-semibold tracking-tight transition-colors",
-                    location.pathname.startsWith("/about") || mobileAboutOpen
-                      ? "italic text-gold"
-                      : "text-cream hover:text-gold"
-                  )}
-                >
-                  {link.label}
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 16 16"
-                    className={cn("h-5 w-5 transition-transform", mobileAboutOpen && "rotate-180")}
-                    fill="none"
-                  >
-                    <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
-                  </svg>
-                </button>
-                {mobileAboutOpen && (
-                  <div className="ml-2 mt-3 flex flex-col border-l border-gold/40 pl-5">
-                    {ABOUT_NAV_LINKS.map((item) => (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        className="py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-gold"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
+                {link.to === "/about" ? (
+                  <>
+                    <button
+                      type="button"
+                      aria-expanded={mobileAboutOpen}
+                      onClick={() => setMobileAboutOpen((value) => !value)}
+                      className={cn(
+                        "flex items-center gap-3 font-display text-5xl font-semibold tracking-tight transition-colors",
+                        location.pathname.startsWith("/about") || mobileAboutOpen ? "italic text-gold" : "text-cream hover:text-gold"
+                      )}
+                    >
+                      {link.label}
+                      <svg aria-hidden="true" viewBox="0 0 16 16" className={cn("h-5 w-5 transition-transform", mobileAboutOpen && "rotate-180")} fill="none">
+                        <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </button>
+                    {mobileAboutOpen && (
+                      <div className="ml-2 mt-3 flex flex-col border-l border-gold/40 pl-5">
+                        {ABOUT_NAV_LINKS.map((item) => (
+                          <Link key={item.to} to={item.to} className="py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-gold">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      aria-expanded={mobileAdministrationOpen}
+                      onClick={() => setMobileAdministrationOpen((value) => !value)}
+                      className={cn(
+                        "flex items-center gap-3 font-display text-5xl font-semibold tracking-tight transition-colors",
+                        location.pathname.startsWith("/administration") || mobileAdministrationOpen ? "italic text-gold" : "text-cream hover:text-gold"
+                      )}
+                    >
+                      {link.label}
+                      <svg aria-hidden="true" viewBox="0 0 16 16" className={cn("h-5 w-5 transition-transform", mobileAdministrationOpen && "rotate-180")} fill="none">
+                        <path d="m3.5 6 4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </button>
+                    {mobileAdministrationOpen && (
+                      <div className="ml-2 mt-3 flex flex-col border-l border-gold/40 pl-5">
+                        {ADMINISTRATION_NAV_LINKS.map((item) => (
+                          <Link key={item.to} to={item.to} className="py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-cream/70 transition-colors hover:text-gold">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ) : (
