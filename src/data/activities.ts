@@ -62,6 +62,25 @@ export const ACTIVITIES: ActivitySection[] = [
     ],
   },
   {
+    id: "courtesy-visits",
+    title: "Courtesy Visits",
+    subtitle: "Reception and community visits",
+    summary:
+      "OSDA attended the reception for the first Senior Advocate of Nigeria (SAN) from Oghe and visited Chief Anthonia Nwankwo (née Nwafor), Deputy Comptroller of Customs.",
+    pages: [
+      {
+        src: "/images/activities/courtesy-visits/first-san-reception.jpeg",
+        alt: "OSDA members at the reception of Oghe’s first Senior Advocate of Nigeria.",
+        caption: "Reception of Oghe’s first SAN",
+      },
+      {
+        src: "/images/activities/courtesy-visits/chief-anthonia-nwankwo.jpeg",
+        alt: "OSDA members visiting Chief Anthonia Nwankwo, Deputy Comptroller of Customs.",
+        caption: "Visit to Chief Anthonia Nwankwo",
+      },
+    ],
+  },
+  {
     id: "kuje-property",
     title: "Our Kuje Property Inspection and Fencing",
     subtitle: "Property development",
