@@ -3,6 +3,7 @@ import { HashRouter, Navigate, Route, Routes, useLocation } from "react-router-d
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import About from "./pages/About";
+import Activities from "./pages/Activities";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import HistoryOfOghe from "./pages/HistoryOfOghe";
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="/administration/leadership-2021-present" element={<Leadership2021ToPresent />} />
           <Route path="/about/osda-administration" element={<Navigate to="/administration/board-of-trustees" replace />} />
           <Route path="/about/sights-and-sounds-of-oghe" element={<SightsAndSoundsOfOghe />} />
+          <Route path="/activities" element={<Activities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>

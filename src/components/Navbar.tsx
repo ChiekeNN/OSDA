@@ -100,7 +100,7 @@ export default function Navbar() {
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <Wordmark />
 
-            <nav className="hidden items-center gap-9 md:flex">
+            <nav className="hidden items-center gap-5 lg:flex xl:gap-9">
               {NAV_LINKS.map((link) =>
                 link.to === "/about" ? (
                   <div key={link.to} className="relative">
@@ -183,7 +183,7 @@ export default function Navbar() {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="relative z-[70] flex h-11 w-11 items-center justify-center md:hidden"
+              className="relative z-[70] flex h-11 w-11 items-center justify-center lg:hidden"
             >
               <span
                 className={cn(
@@ -205,7 +205,7 @@ export default function Navbar() {
       {/* mobile panel */}
       <div
         className={cn(
-          "fixed inset-0 z-[60] flex flex-col justify-center overflow-y-auto bg-forest px-8 py-24 transition-all duration-500 md:hidden",
+          "fixed inset-0 z-[60] flex flex-col justify-center overflow-y-auto bg-forest px-8 py-24 transition-all duration-500 lg:hidden",
           open ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
