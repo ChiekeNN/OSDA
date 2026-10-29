@@ -196,6 +196,7 @@ export const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About OSDA" },
   { to: "/administration", label: "OSDA Administration" },
+  { to: "/activities", label: "Activities" },
   { to: "/contact", label: "Contact" },
 ];
 
