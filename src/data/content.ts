@@ -195,6 +195,7 @@ export const PILLARS: { icon: IconKey; title: string; text: string }[] = [
 export const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About OSDA" },
+  { to: "/administration", label: "OSDA Administration" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -204,4 +205,14 @@ export const ABOUT_NAV_LINKS = [
   { to: "/about/history-of-oghe", label: "HISTORY OF OGHE" },
   { to: "/about/history-of-ezeagu", label: "History of Ezeagu" },
   { to: "/about/sights-and-sounds-of-oghe", label: "Sights and Sounds of Oghe" },
+];
+
+export const ADMINISTRATION_NAV_LINKS = [
+  { to: "/administration/inaugural-leadership", label: "Inaugural Leadership of OSDA" },
+  { to: "/administration/leadership-2006-2010", label: "OSDA Leadership 2006–2010" },
+  { to: "/administration/leadership-2010-2014", label: "OSDA Leadership 2010–2014" },
+  { to: "/administration/leadership-2014-2018", label: "OSDA Leadership 2014–2018" },
+  { to: "/administration/leadership-2018-2021", label: "Chief Peter Ozoagu Leadership 2018–2021" },
+  { to: "/administration/leadership-2021-present", label: "Gerald Aniamalu Leadership 2021–Present" },
+  { to: "/administration/board-of-trustees", label: "Board of Trustees" }
 ];
