@@ -18,12 +18,15 @@ export default function Footer() {
         <div className="grid gap-12 py-14 md:grid-cols-2 lg:grid-cols-12">
           {/* identity */}
           <div className="lg:col-span-5">
-            <p className="font-display text-3xl font-bold text-cream">
-              OSDA<span className="text-gold">.</span>
-            </p>
-            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-cream/50">
-              {ORG.name}
-            </p>
+            <div className="inline-flex max-w-full bg-white p-3">
+              <img
+                src="/images/osda-logo.png"
+                alt="Official logo of Oghe Social Development Association (OSDA)"
+                width="627"
+                height="489"
+                className="h-auto w-56 max-w-full object-contain"
+              />
+            </div>
             <p className="mt-6 max-w-sm font-display text-xl italic leading-relaxed text-cream/85">
               {ORG.motto.join(". ")}
               <span className="text-gold">.</span>

@@ -4,36 +4,18 @@ import { ABOUT_NAV_LINKS, ADMINISTRATION_NAV_LINKS, NAV_LINKS, ORG } from "../da
 import { cn } from "../utils/cn";
 import { ArrowUpRight } from "./icons";
 
-function Wordmark({ light = false }: { light?: boolean }) {
+function Wordmark() {
   return (
-    <Link to="/" className="group flex items-center gap-3">
-      <span
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-full border font-display text-lg font-bold transition-colors duration-300",
-          light
-            ? "border-gold/60 text-gold group-hover:bg-gold group-hover:text-forest"
-            : "border-pine/50 text-pine group-hover:bg-pine group-hover:text-cream"
-        )}
-      >
-        O
-      </span>
-      <span className="leading-none">
-        <span
-          className={cn(
-            "block font-display text-xl font-bold tracking-tight",
-            light ? "text-cream" : "text-ink"
-          )}
-        >
-          OSDA<span className="text-gold">.</span>
-        </span>
-        <span
-          className={cn(
-            "mt-1 hidden text-[9.5px] font-semibold uppercase tracking-[0.22em] sm:block",
-            light ? "text-cream/60" : "text-ink/50"
-          )}
-        >
-          Oghe Social Development
-        </span>
+    <Link to="/" aria-label="OSDA home" className="group flex items-center gap-3">
+      <img
+        src="/images/osda-logo-mark.png"
+        alt=""
+        width="390"
+        height="445"
+        className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+      />
+      <span className="hidden max-w-[165px] font-display text-[10px] font-semibold uppercase leading-snug tracking-[0.16em] text-ink/70 sm:block">
+        Oghe Social Development Association
       </span>
     </Link>
   );
