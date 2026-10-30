@@ -11,7 +11,7 @@ import {
   ObjectiveIcon,
   PinIcon,
 } from "../components/icons";
-import { IMAGES, OBJECTIVES, ORG, PROGRAMS, STATS, STEPS } from "../data/content";
+import { IMAGES, OBJECTIVES, ORG, STATS, STEPS } from "../data/content";
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -315,70 +315,6 @@ function Objectives() {
   );
 }
 
-function Programs() {
-  return (
-    <section className="border-y border-ink/10 bg-paper">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
-        <div className="flex flex-wrap items-end justify-between gap-8">
-          <Reveal>
-            <p className="eyebrow">03 · Where we work</p>
-            <h2 className="mt-6 max-w-xl font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink md:text-5xl">
-              Programmes that move a{" "}
-              <span className="italic text-pine">whole community</span> forward.
-            </h2>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="max-w-xs text-sm leading-relaxed text-ink/55">
-              Every programme is designed <em>with</em> the community — and
-              handed over to it, so it outlasts the project cycle.
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-2">
-          {PROGRAMS.map((p, i) => (
-            <Reveal
-              key={p.title}
-              delay={(i % 2) * 130}
-              className={i % 2 === 1 ? "md:mt-16" : ""}
-            >
-              <article className="group">
-                <div className="overflow-hidden border border-ink/10">
-                  <img
-                    src={p.image.src}
-                    alt={p.image.alt}
-                    loading="lazy"
-                    className="h-64 w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06] md:h-72"
-                  />
-                </div>
-                <div className="mt-6 flex items-baseline justify-between">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
-                    {p.tag}
-                  </p>
-                  <span className="font-display text-lg italic text-ink/30">
-                    0{i + 1}
-                  </span>
-                </div>
-                <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink transition-colors duration-300 group-hover:text-pine md:text-[1.65rem]">
-                  {p.title}
-                </h3>
-                <p className="mt-3 max-w-md leading-relaxed text-ink/65">{p.text}</p>
-                <Link
-                  to="/about"
-                  className="link-sweep mt-5 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-pine"
-                >
-                  Learn more
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-                </Link>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function HowWeWork() {
   return (
     <section className="relative overflow-hidden bg-forest text-cream">
@@ -388,7 +324,7 @@ function HowWeWork() {
       />
       <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-28">
         <Reveal>
-          <p className="eyebrow text-gold!">04 · How we work</p>
+          <p className="eyebrow text-gold!">03 · How we work</p>
           <h2 className="mt-6 max-w-2xl font-display text-4xl font-semibold leading-[1.06] tracking-tight md:text-5xl">
             From first conversation to <span className="italic text-gold">lasting change</span>.
           </h2>
@@ -471,13 +407,12 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <NewsSection />
       <PresidentWelcome />
+      <NewsSection />
       <Marquee />
       <WhoWeAre />
       <Stats />
       <Objectives />
-      <Programs />
       <HowWeWork />
       <CallToAction />
     </>

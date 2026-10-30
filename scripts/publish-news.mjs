@@ -149,6 +149,12 @@ function validateGeneratedArticles(value, date) {
     if (articleWords < 170 || articleWords > 430) {
       throw new Error(`The full article for “${article.title}” is ${articleWords} words; expected 170–430.`);
     }
+    if (typeof article.illustrationPrompt !== "string" || article.illustrationPrompt.length < 60 || article.illustrationPrompt.length > 800) {
+      throw new Error(`A specific illustration prompt is missing for “${article.title}”.`);
+    }
+    if (typeof article.imageAlt !== "string" || article.imageAlt.length < 25 || article.imageAlt.length > 220) {
+      throw new Error(`Accessible illustration text is missing for “${article.title}”.`);
+    }
     const slug = `${date}-${slugify(article.title)}`;
     return {
       slug,
@@ -157,6 +163,8 @@ function validateGeneratedArticles(value, date) {
       publishedAt: date,
       byline: BYLINE,
       excerpt: article.excerpt.trim(),
+      imageAlt: article.imageAlt.trim(),
+      illustrationPrompt: article.illustrationPrompt.trim(),
       body: article.body.map((paragraph) => paragraph.trim()),
     };
   });
@@ -190,8 +198,9 @@ async function generateArticles(candidates, date) {
             "Do not reproduce source wording. Do not include external links, source lists, or a different byline in the articles.",
             "If a candidate lacks enough reliable detail for a full article, choose another sufficiently supported candidate in the same category.",
             "Return JSON only, with an articles array containing exactly one item for each requested category.",
-            "Each item must have: title (string), category (string), excerpt (one or two sentences), body (array of 3 to 5 substantial paragraphs).",
+            "Each item must have: title (string), category (string), excerpt (one or two sentences), body (array of 3 to 5 substantial paragraphs), imageAlt (one concise accessible sentence), and illustrationPrompt (a detailed scene that specifically depicts this story).",
             "Each article body should be 190 to 300 words, not a short news brief. Make clear what is known, what is a claim, and what remains undecided.",
+            "Image prompts must request an original editorial illustration, not a documentary photograph. No legible text, logos, or misleading depictions of identifiable people; be respectful with tragedies and children.",
           ].join(" "),
         },
         {
@@ -217,6 +226,52 @@ async function generateArticles(candidates, date) {
   return validateGeneratedArticles(JSON.parse(content), date);
 }
 
+async function generateIllustration(article) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  const model = process.env.OPENAI_IMAGE_MODEL || "gpt-image-1";
+  const prompt = [
+    "Create one polished editorial illustration for a community news website.",
+    "This is an illustration, not a real news photograph.",
+    article.illustrationPrompt,
+    "Use a wide landscape composition, 3:2 aspect ratio, rich natural colors with restrained forest-green and harvest-gold accents.",
+    "Do not include words, captions, logos, watermarks, invented official insignia, or identifiable real people.",
+    "Depict only what the story supports; avoid implying this artwork is documentary evidence.",
+  ].join(" ");
+  const response = await fetch("https://api.openai.com/v1/images/generations", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${apiKey}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      prompt,
+      size: "1536x1024",
+      quality: "medium",
+      output_format: "webp",
+    }),
+    signal: AbortSignal.timeout(180000),
+  });
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Illustration service returned ${response.status} for “${article.title}”: ${detail.slice(0, 500)}`);
+  }
+  const payload = await response.json();
+  const encodedImage = payload.data?.[0]?.b64_json;
+  if (!encodedImage) throw new Error(`No image data returned for “${article.title}”.`);
+
+  const imageName = `${article.slug}.webp`;
+  const imageFile = new URL(`../public/images/news/${imageName}`, import.meta.url);
+  await writeFile(imageFile, Buffer.from(encodedImage, "base64"));
+  const publishedArticle = Object.fromEntries(
+    Object.entries(article).filter(([key]) => key !== "illustrationPrompt"),
+  );
+  return {
+    ...publishedArticle,
+    image: `/images/news/${imageName}`,
+  };
+}
+
 const date = localDate();
 const existing = JSON.parse(await readFile(NEWS_FILE, "utf8"));
 const todaysCategories = new Set(existing.filter((article) => article.publishedAt === date).map((article) => article.category));
@@ -237,7 +292,9 @@ for (const category of CATEGORIES) {
   }
 }
 
-const newArticles = await generateArticles(candidates, date);
+const articleDrafts = await generateArticles(candidates, date);
+console.log("Creating story-specific editorial illustrations.");
+const newArticles = await Promise.all(articleDrafts.map(generateIllustration));
 const next = [...newArticles, ...existing];
 const seen = new Set();
 const deduplicated = next.filter((article) => {

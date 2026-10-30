@@ -9,6 +9,8 @@ export type NewsArticle = {
   publishedAt: string;
   byline: "OSDA News Correspondence";
   excerpt: string;
+  image: string;
+  imageAlt: string;
   body: string[];
 };
 

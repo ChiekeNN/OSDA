@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
 import NewsCard, { formatNewsDate } from "./NewsCard";
 import { ArrowRight } from "./icons";
-import { latestEditionArticles, latestEditionDate } from "../data/news";
+import { newsArticles } from "../data/news";
 
 export default function NewsSection() {
-  const featuredStories = latestEditionArticles.slice(0, 4);
-  const editionDate = latestEditionDate;
+  const homeStories = newsArticles.slice(0, 12);
+  const newestDate = homeStories[0]?.publishedAt;
 
   return (
     <section id="latest-news" className="border-y border-ink/10 bg-paper py-20 md:py-28">
@@ -19,27 +19,27 @@ export default function NewsSection() {
                 News from home <span className="italic text-pine">and beyond.</span>
               </h2>
               <p className="mt-4 max-w-2xl leading-relaxed text-ink/60">
-                Read the latest stories from Enugu, Nigeria, Africa and around the world.
+                Twelve illustrated stories from Enugu, Nigeria, Africa and around the world.
               </p>
             </div>
             <Link to="/news" className="btn btn-line w-fit">
-              Latest edition · {latestEditionArticles.length} stories
+              Browse news archive
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredStories.map((article, index) => (
-            <Reveal key={article.slug} delay={index * 70}>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {homeStories.map((article, index) => (
+            <Reveal key={article.slug} delay={(index % 3) * 65}>
               <NewsCard article={article} />
             </Reveal>
           ))}
         </div>
 
-        {editionDate && (
+        {newestDate && (
           <p className="mt-9 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/40">
-            Latest edition · {formatNewsDate(editionDate)}
+            Showing the 12 most recent stories · updated {formatNewsDate(newestDate)} · previous stories remain in the archive
           </p>
         )}
       </div>

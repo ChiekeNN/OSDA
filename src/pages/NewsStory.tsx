@@ -25,6 +25,22 @@ export default function NewsStory() {
           <time dateTime={article.publishedAt}>{formatNewsDate(article.publishedAt)}</time>
         </div>
 
+        <figure className="mt-8 overflow-hidden border border-ink/10 bg-sand md:mt-10">
+          <div className="relative aspect-[16/9]">
+            <img
+              src={article.image}
+              alt={article.imageAlt}
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute left-4 top-4 bg-forest/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-cream backdrop-blur-sm">
+              Illustration
+            </span>
+          </div>
+          <figcaption className="px-4 py-3 text-xs leading-relaxed text-ink/55">
+            Editorial illustration · {article.imageAlt}
+          </figcaption>
+        </figure>
+
         <div className="prose-osda mt-10 space-y-6 font-display text-lg leading-[1.9] text-ink/80 md:mt-14 md:text-xl">
           {article.body.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </div>
