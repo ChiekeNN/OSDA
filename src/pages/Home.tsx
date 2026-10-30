@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import CountUp from "../components/CountUp";
 import Marquee from "../components/Marquee";
+import NewsSection from "../components/NewsSection";
 import OrbitBadge from "../components/OrbitBadge";
 import Reveal from "../components/Reveal";
 import {
@@ -470,6 +471,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <NewsSection />
       <PresidentWelcome />
       <Marquee />
       <WhoWeAre />
