@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img">
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f6e8c6"/><stop offset="1" stop-color="#d8e4d2"/></linearGradient>
+  <linearGradient id="pine" x2="0" y2="1"><stop stop-color="#397657"/><stop offset="1" stop-color="#0d2b1f"/></linearGradient>
+  <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#eac66e"/><stop offset="1" stop-color="#c98d30"/></linearGradient>
+  <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#a9c9b7"/><stop offset="1" stop-color="#48735f"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#sky)"/>
+<circle cx="1000" cy="112" r="62" fill="#e4b44f" opacity=".9"/>
+<path d="M0 390 Q170 285 330 390 T650 378 T960 365 T1200 385 V675 H0Z" fill="#b7c9ac"/>
+<path d="M0 470 Q180 370 360 460 T720 440 T1060 455 T1200 420 V675 H0Z" fill="#668c6b"/>
+<path d="M0 530 Q260 448 510 520 T930 510 T1200 490 V675 H0Z" fill="url(#pine)"/>
+
+<!-- Stadium lanes, youth athletes and Dakar coastal colors -->
+<path d="M0 454q310-164 612-12t588-10v243H0Z" fill="#d7a64d"/>
+<path d="M0 492q305-130 600 4t600-4" fill="none" stroke="#fff2d6" stroke-width="15"/>
+<path d="M0 546q300-120 600 4t600-4" fill="none" stroke="#fff2d6" stroke-width="14"/>
+<path d="M120 270h960v122H120z" fill="#f2e5c9" stroke="#244b36" stroke-width="10"/>
+<path d="M165 308h870M165 350h870" stroke="#63866a" stroke-width="17" stroke-dasharray="24 17"/>
+<g stroke="#193d2c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><circle cx="362" cy="380" r="24" fill="#8b5234" stroke="none"/><path d="m357 408-28 77 72 15m-42-91 53 50 43-8m-75 4-48 74m82-57 46 62" fill="none"/><circle cx="590" cy="355" r="24" fill="#b8794d" stroke="none"/><path d="m585 384-25 78 75 18m-41-93 55 45 40-15m-79 15-48 77m83-60 42 60" fill="none"/></g>
+<path d="M916 176v145m0-145 112 35-112 34" fill="#d8a63f" stroke="#214835" stroke-width="10"/><path d="M916 210h92v35h-92z" fill="#c64e3e"/>
+<path d="M115 620h960" stroke="#fff1d5" stroke-width="8" opacity=".8"/>
+
+<rect width="1200" height="675" fill="none" stroke="#fff9eb" stroke-opacity=".38" stroke-width="10"/>
+</svg>

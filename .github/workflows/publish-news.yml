@@ -39,6 +39,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: gpt-4o-mini
+          OPENAI_IMAGE_MODEL: gpt-image-1
 
       - name: Verify the updated site builds
         run: npm run build

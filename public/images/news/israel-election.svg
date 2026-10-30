@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img">
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f6e8c6"/><stop offset="1" stop-color="#d8e4d2"/></linearGradient>
+  <linearGradient id="pine" x2="0" y2="1"><stop stop-color="#397657"/><stop offset="1" stop-color="#0d2b1f"/></linearGradient>
+  <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#eac66e"/><stop offset="1" stop-color="#c98d30"/></linearGradient>
+  <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#a9c9b7"/><stop offset="1" stop-color="#48735f"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#sky)"/>
+<circle cx="1000" cy="112" r="62" fill="#e4b44f" opacity=".9"/>
+<path d="M0 390 Q170 285 330 390 T650 378 T960 365 T1200 385 V675 H0Z" fill="#b7c9ac"/>
+<path d="M0 470 Q180 370 360 460 T720 440 T1060 455 T1200 420 V675 H0Z" fill="#668c6b"/>
+<path d="M0 530 Q260 448 510 520 T930 510 T1200 490 V675 H0Z" fill="url(#pine)"/>
+
+<!-- Parliament, ballots and coalition talks after a close election -->
+<path d="M216 357 600 183l384 174Z" fill="#efe4cf" stroke="#355a45" stroke-width="13"/>
+<rect x="247" y="352" width="706" height="184" fill="#dfd2b8" stroke="#355a45" stroke-width="13"/>
+<g fill="#f6f0df" stroke="#41694f" stroke-width="10"><path d="M292 369h95v137h-95z"/><path d="M421 369h95v137h-95z"/><path d="M550 369h95v137h-95z"/><path d="M679 369h95v137h-95z"/><path d="M808 369h95v137h-95z"/></g>
+<path d="M186 541h828v32H186z" fill="#9b8150"/><path d="M150 577h900v28H150z" fill="#d4a145"/>
+<rect x="488" y="522" width="224" height="106" rx="10" fill="#194431"/><path d="M510 547h181" stroke="#f2e3c3" stroke-width="13"/><path d="M545 522v-39h110v39" fill="none" stroke="#d7aa50" stroke-width="11"/>
+<g fill="#203f2f"><circle cx="160" cy="447" r="25"/><path d="M126 478h69v119h-69z"/><circle cx="1040" cy="446" r="25"/><path d="M1006 477h69v120h-69z"/></g>
+<path d="M116 611h968" stroke="#fff1d4" stroke-width="8" opacity=".7"/>
+
+<rect width="1200" height="675" fill="none" stroke="#fff9eb" stroke-opacity=".38" stroke-width="10"/>
+</svg>
