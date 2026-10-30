@@ -17,7 +17,7 @@ export const ORG = {
   /* Placeholder contact details — replace with the real ones. */
   email: "hello@osda.org.ng",
   phone: "+234 (0) 800 000 0000",
-  location: "Oghe, Akwa Ibom State, Nigeria",
+  location: "Oghe, Nigeria",
   hours: "Monday – Friday · 9:00 – 17:00 WAT",
   socials: [
     { label: "X / Twitter", href: "#", icon: "x" },
