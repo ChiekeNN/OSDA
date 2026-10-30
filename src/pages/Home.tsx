@@ -135,6 +135,18 @@ function PresidentWelcome() {
             <p className="mt-6 max-w-sm leading-relaxed text-ink/60">
               A few words from the office of the President of Oghe Social Development Association.
             </p>
+            <figure className="mt-8 max-w-sm overflow-hidden border border-ink/10 bg-paper">
+              <img
+                src="/images/gerald-aniamalu-president.png"
+                alt="Gerald Aniamalu, President of the Oghe Social Development Association"
+                width="402"
+                height="436"
+                className="block h-auto w-full"
+              />
+              <figcaption className="px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/55">
+                Gerald Aniamalu · President
+              </figcaption>
+            </figure>
           </Reveal>
         </div>
 
