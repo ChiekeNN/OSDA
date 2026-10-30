@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Activities from "./pages/Activities";
 import Contact from "./pages/Contact";
+import News from "./pages/News";
+import NewsStory from "./pages/NewsStory";
 import Home from "./pages/Home";
 import HistoryOfOghe from "./pages/HistoryOfOghe";
 import HistoryOfOsda from "./pages/HistoryOfOsda";
@@ -73,6 +75,8 @@ export default function App() {
           <Route path="/about/osda-administration" element={<Navigate to="/administration/board-of-trustees" replace />} />
           <Route path="/about/sights-and-sounds-of-oghe" element={<SightsAndSoundsOfOghe />} />
           <Route path="/activities" element={<Activities />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewsStory />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>
