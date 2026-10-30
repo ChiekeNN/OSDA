@@ -19,7 +19,7 @@ export default function NewsSection() {
                 News from home <span className="italic text-pine">and beyond.</span>
               </h2>
               <p className="mt-4 max-w-2xl leading-relaxed text-ink/60">
-                Twelve illustrated stories from Enugu, Nigeria, Africa and around the world.
+                Twelve recent stories with related photographs from Enugu, Nigeria, Africa and around the world.
               </p>
             </div>
             <Link to="/news" className="btn btn-line w-fit">

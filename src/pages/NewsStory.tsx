@@ -33,11 +33,24 @@ export default function NewsStory() {
               className="h-full w-full object-cover"
             />
             <span className="absolute left-4 top-4 bg-forest/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-cream backdrop-blur-sm">
-              Illustration
+              Photo
             </span>
           </div>
           <figcaption className="px-4 py-3 text-xs leading-relaxed text-ink/55">
-            Editorial illustration · {article.imageAlt}
+            <span>{article.imageCaption ?? article.imageAlt}</span>
+            {article.imageCredit && (
+              <span className="mt-1 block">Photo credit: {article.imageCredit}.</span>
+            )}
+            {article.imageLicense && article.imageLicenseUrl && (
+              <a
+                href={article.imageLicenseUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1 inline-block underline underline-offset-2"
+              >
+                {article.imageLicense}
+              </a>
+            )}
           </figcaption>
         </figure>
 
