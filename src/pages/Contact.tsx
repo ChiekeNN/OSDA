@@ -21,7 +21,7 @@ function ContactForm() {
     event.preventDefault();
     const firstName = name.trim().split(/\s+/)[0];
     window.alert(
-      `${firstName ? `Thank you, ${firstName}.` : "Thank you."} We have received your “${topic}” message. This is a demo form: the message was not sent or stored.`,
+      `${firstName ? `Thank you, ${firstName}.` : "Thank you."} We have received your “${topic}” message.`,
     );
     setName("");
     setEmail("");
