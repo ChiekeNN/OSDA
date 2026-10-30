@@ -37,6 +37,20 @@ function readTag(xml, tag) {
   return match ? cleanMarkup(match[1]) : "";
 }
 
+function readMeta(html, property) {
+  const tags = html.match(/<meta\b[^>]*>/gi) ?? [];
+  for (const tag of tags) {
+    const attributes = Object.fromEntries(
+      [...tag.matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)]
+        .map((match) => [match[1].toLowerCase(), decodeEntities(match[2] ?? match[3] ?? match[4] ?? "")]),
+    );
+    if ((attributes.property ?? attributes.name)?.toLowerCase() === property) {
+      return attributes.content ?? "";
+    }
+  }
+  return "";
+}
+
 function localDate() {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Africa/Lagos",
@@ -114,6 +128,16 @@ async function getCandidates(category, query) {
       if (page.ok) {
         const html = await page.text();
         candidate.articleText = extractArticleText(html).slice(0, 3500);
+        candidate.sourceUrl = page.url || candidate.url;
+        const imageUrl = readMeta(html, "og:image") || readMeta(html, "twitter:image");
+        if (imageUrl) {
+          try {
+            candidate.imageUrl = new URL(imageUrl, candidate.sourceUrl).href;
+          } catch {
+            candidate.imageUrl = "";
+          }
+        }
+        candidate.imageAlt = readMeta(html, "og:image:alt") || readMeta(html, "twitter:image:alt");
       }
     } catch (error) {
       console.warn(`Could not retrieve full source text for: ${candidate.title}`);
@@ -126,11 +150,12 @@ function countWords(value) {
   return value.trim().split(/\s+/).filter(Boolean).length;
 }
 
-function validateGeneratedArticles(value, date) {
+function validateGeneratedArticles(value, date, candidates) {
   if (!value || !Array.isArray(value.articles) || value.articles.length !== 4) {
     throw new Error("The news model must return exactly four complete stories.");
   }
   const seenCategories = new Set();
+  const seenPhotoUrls = new Set();
   return value.articles.map((article) => {
     if (!CATEGORIES.includes(article.category) || seenCategories.has(article.category)) {
       throw new Error("The generated issue must contain one story in each agreed category.");
@@ -149,11 +174,21 @@ function validateGeneratedArticles(value, date) {
     if (articleWords < 170 || articleWords > 430) {
       throw new Error(`The full article for “${article.title}” is ${articleWords} words; expected 170–430.`);
     }
-    if (typeof article.illustrationPrompt !== "string" || article.illustrationPrompt.length < 60 || article.illustrationPrompt.length > 800) {
-      throw new Error(`A specific illustration prompt is missing for “${article.title}”.`);
+    if (typeof article.sourceUrl !== "string" || typeof article.imageUrl !== "string") {
+      throw new Error(`A verified source photo is missing for “${article.title}”.`);
     }
-    if (typeof article.imageAlt !== "string" || article.imageAlt.length < 25 || article.imageAlt.length > 220) {
-      throw new Error(`Accessible illustration text is missing for “${article.title}”.`);
+    const selectedSource = candidates[article.category].find(
+      (candidate) => candidate.sourceUrl === article.sourceUrl && candidate.imageUrl === article.imageUrl,
+    );
+    if (!selectedSource) {
+      throw new Error(`The source photo for “${article.title}” does not match a collected report.`);
+    }
+    if (seenPhotoUrls.has(selectedSource.imageUrl)) {
+      throw new Error("Each story in an issue must have its own source photo.");
+    }
+    seenPhotoUrls.add(selectedSource.imageUrl);
+    if (typeof article.imageAlt !== "string" || article.imageAlt.length < 20 || article.imageAlt.length > 220) {
+      throw new Error(`Accessible photo text is missing for “${article.title}”.`);
     }
     const slug = `${date}-${slugify(article.title)}`;
     return {
@@ -163,8 +198,11 @@ function validateGeneratedArticles(value, date) {
       publishedAt: date,
       byline: BYLINE,
       excerpt: article.excerpt.trim(),
-      imageAlt: article.imageAlt.trim(),
-      illustrationPrompt: article.illustrationPrompt.trim(),
+      imageAlt: (selectedSource.imageAlt || article.imageAlt).trim(),
+      imageCaption: (selectedSource.imageAlt || article.imageAlt).trim(),
+      imageCredit: selectedSource.source || new URL(selectedSource.sourceUrl).hostname,
+      imageSource: selectedSource.sourceUrl,
+      imageUrl: selectedSource.imageUrl,
       body: article.body.map((paragraph) => paragraph.trim()),
     };
   });
@@ -198,9 +236,10 @@ async function generateArticles(candidates, date) {
             "Do not reproduce source wording. Do not include external links, source lists, or a different byline in the articles.",
             "If a candidate lacks enough reliable detail for a full article, choose another sufficiently supported candidate in the same category.",
             "Return JSON only, with an articles array containing exactly one item for each requested category.",
-            "Each item must have: title (string), category (string), excerpt (one or two sentences), body (array of 3 to 5 substantial paragraphs), imageAlt (one concise accessible sentence), and illustrationPrompt (a detailed scene that specifically depicts this story).",
+            "Each item must have: title (string), category (string), excerpt (one or two sentences), body (array of 3 to 5 substantial paragraphs), sourceUrl (exact sourceUrl from the selected candidate), imageUrl (exact imageUrl from that same candidate), and imageAlt (one concise accessible sentence based on the candidate image metadata).",
             "Each article body should be 190 to 300 words, not a short news brief. Make clear what is known, what is a claim, and what remains undecided.",
-            "Image prompts must request an original editorial illustration, not a documentary photograph. No legible text, logos, or misleading depictions of identifiable people; be respectful with tragedies and children.",
+            "Use only the supplied candidate photo URLs. Select a candidate with a relevant editorial photograph; do not invent, alter, or generate an image. Never choose a graphic, logo, chart, or unrelated thumbnail. Do not include image source URLs in reader-facing article text.",
+            "If a candidate photo's alt text is supplied, use that information for imageAlt. If it is absent, describe only what is supported by the candidate headline and source description; do not invent visible details. Be respectful with tragedies and children.",
           ].join(" "),
         },
         {
@@ -209,7 +248,7 @@ async function generateArticles(candidates, date) {
             editionDate: date,
             requiredCategories: CATEGORIES,
             candidates,
-            outputInstructions: "Create one original full article for each category. Keep all source addresses out of the reader-facing story text.",
+            outputInstructions: "Create one original full article per category. Select a candidate with a relevant real photo, and return its exact sourceUrl and imageUrl values. Keep source addresses out of the reader-facing story text.",
           }),
         },
       ],
@@ -223,53 +262,34 @@ async function generateArticles(candidates, date) {
   const result = await response.json();
   const content = result.choices?.[0]?.message?.content;
   if (!content) throw new Error("The news writing service returned no article content.");
-  return validateGeneratedArticles(JSON.parse(content), date);
+  return validateGeneratedArticles(JSON.parse(content), date, candidates);
 }
 
-async function generateIllustration(article) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_IMAGE_MODEL || "gpt-image-1";
-  const prompt = [
-    "Create one polished editorial illustration for a community news website.",
-    "This is an illustration, not a real news photograph.",
-    article.illustrationPrompt,
-    "Use a wide landscape composition, 3:2 aspect ratio, rich natural colors with restrained forest-green and harvest-gold accents.",
-    "Do not include words, captions, logos, watermarks, invented official insignia, or identifiable real people.",
-    "Depict only what the story supports; avoid implying this artwork is documentary evidence.",
-  ].join(" ");
-  const response = await fetch("https://api.openai.com/v1/images/generations", {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${apiKey}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      prompt,
-      size: "1536x1024",
-      quality: "medium",
-      output_format: "webp",
-    }),
-    signal: AbortSignal.timeout(180000),
+async function downloadNewsPhoto(article) {
+  const response = await fetch(article.imageUrl, {
+    redirect: "follow",
+    headers: { "user-agent": "OSDA-NewsResearch/1.0 (editorial photo download)" },
+    signal: AbortSignal.timeout(45000),
   });
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(`Illustration service returned ${response.status} for “${article.title}”: ${detail.slice(0, 500)}`);
+    throw new Error(`Photo source returned ${response.status} for “${article.title}”.`);
   }
-  const payload = await response.json();
-  const encodedImage = payload.data?.[0]?.b64_json;
-  if (!encodedImage) throw new Error(`No image data returned for “${article.title}”.`);
+  const contentType = (response.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+  const extensions = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
+  const extension = extensions[contentType];
+  if (!extension) {
+    throw new Error(`Unsupported photo format “${contentType || "unknown"}” for “${article.title}”.`);
+  }
+  const bytes = Buffer.from(await response.arrayBuffer());
+  if (bytes.length < 15000 || bytes.length > 12_000_000) {
+    throw new Error(`Photo for “${article.title}” is unexpectedly small or large (${bytes.length} bytes).`);
+  }
 
-  const imageName = `${article.slug}.webp`;
+  const imageName = `${article.slug}.${extension}`;
   const imageFile = new URL(`../public/images/news/${imageName}`, import.meta.url);
-  await writeFile(imageFile, Buffer.from(encodedImage, "base64"));
-  const publishedArticle = Object.fromEntries(
-    Object.entries(article).filter(([key]) => key !== "illustrationPrompt"),
-  );
-  return {
-    ...publishedArticle,
-    image: `/images/news/${imageName}`,
-  };
+  await writeFile(imageFile, bytes);
+  const { imageUrl, ...publishedArticle } = article;
+  return { ...publishedArticle, image: `/images/news/${imageName}` };
 }
 
 const date = localDate();
@@ -287,14 +307,15 @@ const grouped = await Promise.all(CATEGORIES.map(async (category) => [
 ]));
 const candidates = Object.fromEntries(grouped);
 for (const category of CATEGORIES) {
+  candidates[category] = candidates[category].filter((candidate) => candidate.imageUrl?.startsWith("https://"));
   if (candidates[category].length < 2) {
-    throw new Error(`Not enough recent candidate reporting for ${category}; refusing to publish filler.`);
+    throw new Error(`Not enough recent reporting with usable photos for ${category}; refusing to publish without real images.`);
   }
 }
 
 const articleDrafts = await generateArticles(candidates, date);
-console.log("Creating story-specific editorial illustrations.");
-const newArticles = await Promise.all(articleDrafts.map(generateIllustration));
+console.log("Downloading story-related photos from the selected reporting sources.");
+const newArticles = await Promise.all(articleDrafts.map(downloadNewsPhoto));
 const next = [...newArticles, ...existing];
 const seen = new Set();
 const deduplicated = next.filter((article) => {

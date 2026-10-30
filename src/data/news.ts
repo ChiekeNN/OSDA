@@ -11,6 +11,11 @@ export type NewsArticle = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  imageCaption?: string;
+  imageCredit?: string;
+  imageLicense?: string;
+  imageLicenseUrl?: string;
+  imageSource?: string;
   body: string[];
 };
 

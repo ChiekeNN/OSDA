@@ -25,9 +25,14 @@ export default function NewsCard({ article }: { article: NewsArticle }) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
         <span className="absolute left-3 top-3 bg-forest/85 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-cream backdrop-blur-sm">
-          Illustration
+          Photo
         </span>
       </Link>
+      {article.imageCredit && (
+        <p className="px-5 pt-2 text-[10px] leading-snug text-ink/45 md:px-6">
+          Photo: {article.imageCredit}
+        </p>
+      )}
       <div className="flex flex-1 flex-col px-5 pb-6 pt-5 md:px-6">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-moss">
           <span>{article.category}</span>
