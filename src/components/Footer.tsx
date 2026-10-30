@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { NAV_LINKS, ORG } from "../data/content";
-import { MailIcon, PhoneIcon, PinIcon, SocialIcon } from "./icons";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -29,27 +28,15 @@ export default function Footer() {
               {ORG.motto.join(". ")}
               <span className="text-gold">.</span>
             </p>
-            <div className="mt-8 flex gap-3">
-              {ORG.socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 text-cream/70 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:bg-gold hover:text-forest"
-                >
-                  <SocialIcon name={s.icon} className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* explore */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
               Explore
             </p>
             <ul className="mt-5 space-y-3">
-              {NAV_LINKS.map((link) => (
+              {NAV_LINKS.filter((link) => link.to !== "/contact").map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
@@ -59,19 +46,11 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/contact"
-                  className="link-sweep text-sm text-cream/70 transition-colors hover:text-cream"
-                >
-                  Get Involved
-                </Link>
-              </li>
             </ul>
           </div>
 
           {/* our work */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
               Our Work
             </p>
@@ -83,31 +62,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* contact */}
-          <div className="lg:col-span-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
-              Reach Us
-            </p>
-            <ul className="mt-5 space-y-4 text-sm">
-              <li>
-                <a
-                  href={`mailto:${ORG.email}`}
-                  className="group flex items-start gap-2.5 text-cream/70 transition-colors hover:text-gold"
-                >
-                  <MailIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold/80" />
-                  {ORG.email}
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5 text-cream/70">
-                <PhoneIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold/80" />
-                {ORG.phone}
-              </li>
-              <li className="flex items-start gap-2.5 text-cream/70">
-                <PinIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold/80" />
-                {ORG.location}
-              </li>
-            </ul>
-          </div>
         </div>
 
         <div className="flex flex-col gap-3 border-t border-cream/15 pt-6 text-[11px] uppercase tracking-[0.2em] text-cream/40 md:flex-row md:items-center md:justify-between">
