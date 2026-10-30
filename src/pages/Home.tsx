@@ -34,7 +34,7 @@ function Hero() {
           <div className="lg:col-span-7">
             <p className="eyebrow h-5">
               <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-gold" />
-              {ORG.name} · Est. Oghe, Akwa Ibom
+              {ORG.name}
             </p>
             <h1 className="mt-8 text-[10.5vw] font-display font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl xl:text-6xl">
               <span className="mask-line">
@@ -59,7 +59,7 @@ function Hero() {
             </h1>
             <div className="mask-line mt-8 max-w-xl">
               <span style={{ animationDelay: "0.75s" }} className="block leading-relaxed text-ink/65">
-                OSDA is a community-driven association in Oghe, Akwa Ibom State —
+                OSDA is a community-driven association in Oghe, Nigeria —
                 opening the doors to education, healthcare, enterprise and
                 skills for every individual, regardless of background.
               </span>
