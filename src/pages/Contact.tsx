@@ -99,9 +99,6 @@ function ContactForm() {
         <button type="submit" className="btn btn-pine">
           Submit message
         </button>
-        <p className="text-xs text-ink/45">
-          Demo only — messages are not sent or stored.
-        </p>
       </div>
     </form>
   );
